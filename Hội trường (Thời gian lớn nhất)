@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int N;
+vector<vector<int>> t;
+vector<int> att(2);
+
+unsigned long long dp[10001];
+
+bool isGreater(const vector<int> &v1, const vector<int> &v2)
+{
+    return v1[0] < v2[0] || (v1[0] == v2[0] && v1[1] < v2[1]);
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    cin >> N;
+
+    for (int i = 0; i < N; ++i)
+    {
+        cin >> att[0] >> att[1];
+
+        t.push_back(att);
+    }
+
+    sort(t.begin(), t.end(), isGreater);
+
+    dp[N - 1] = t[N - 1][1] - t[N - 1][0];
+    for (int i = N - 2; i >= 0; --i)
+    {
+        dp[i] = t[i][1] - t[i][0];
+        unsigned long long m = 0;
+        for (int j = i; j <= N - 1; ++j)
+        {
+            if (t[j][0] >= t[i][1])
+            {
+                m = max(m, dp[j]);
+            }
+        }
+        dp[i] += m;
+    }
+    unsigned long long ans = 0;
+    for(int i = 0; i<N; ++i) ans = max(dp[i], ans);
+    cout << ans;
+}
