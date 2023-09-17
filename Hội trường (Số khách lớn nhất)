@@ -1,3 +1,16 @@
+// Thời gian bắt đầu T_bd, thời gian kết thúc T_kt
+// Gọi dp(i) là mảng chứa số khách lớn nhất khi bắt đầu từ sự kiện thứ i (chọn sự kiện thứ i đến sự kiện thứ N)
+// => dp(N) = 1 (khi bắt đầu từ sự kiện cuối thì có đúng 1 khách)
+// Ta xét i từ N-1 đến 1,
+//    Ta xét j từ i đến N
+//        Tìm dp[j] lớn nhất mà thoả mãn T_kt(i) < T_bd(j) (không có dấu = vì hai sự kiện a-b và b-c không thể đồng thời xảy ra) 
+//    Gán dp[i] = max dp[j] vừa tìm được
+// Xong ta sẽ được mảng dp[i] chứa số khách nhiều nhất khi bắt đầu từ sự kiện i đến N
+// Vì không có gì đảm bảo rằng số khách lớn nhất đạt được khi bắt đầu từ sự kiện 1 đến sự kiện N
+// Nên ta làm thêm bước tìm max(dp), lúc đó max(dp) là số khách lớn nhất và chỉ số i để dp đạt max là sự kiện được cho thuê đầu tiên
+
+
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
